@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stringsense | 처리 상태</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body class="app-body">
+  <div class="shell">
+    <aside class="sidebar">
+      <div>
+        <div class="logo">
+          <span class="logo__mark">S</span>
+          <div>
+            <strong>Stringsense</strong>
+            <p>Guitar Transcription</p>
+          </div>
+        </div>
+        <nav class="nav">
+          <a class="nav__item" href="./index.html">새 분석</a>
+          <a class="nav__item nav__item--active" href="./processing.html">처리 상태</a>
+          <a class="nav__item" href="./result.html">결과 보기</a>
+        </nav>
+      </div>
+      <div class="sidebar__foot">
+        <p class="mini-copy">업로드된 음원을 분석하고 있습니다.</p>
+      </div>
+    </aside>
+
+    <main class="content">
+      <header class="content__header">
+        <div>
+          <h1>분석 진행 중</h1>
+          <p class="body-copy">업로드한 음원을 분석하고 있습니다.</p>
+        </div>
+      </header>
+
+      <section class="card processing-card">
+        <div class="processing-card__ring"></div>
+        <h2>기타 음원을 분석하고 있어요</h2>
+        <p class="body-copy">파일 길이와 환경에 따라 수 초 정도 걸릴 수 있습니다.</p>
+      </section>
+
+      <section class="card">
+        <div class="result-head">
+          <div>
+            <h3>처리 상태</h3>
+          </div>
+          <span class="status-chip">Processing</span>
+        </div>
+        <div class="progress">
+          <div class="progress__item progress__item--done">파일 확인 완료</div>
+          <div class="progress__item progress__item--done">오디오 분석 완료</div>
+          <div class="progress__item progress__item--active">탭 생성 중</div>
+          <div class="progress__item">결과 준비 중</div>
+        </div>
+      </section>
+
+      <section class="grid grid--result">
+        <article class="card">
+          <h3>업로드한 파일</h3>
+          <div class="result-file">
+            <div>
+              <strong>sample_acoustic_riff.wav</strong>
+              <p>분석이 끝나면 결과 화면으로 이동합니다.</p>
+            </div>
+            <span class="soft-pill">분석 중</span>
+          </div>
+        </article>
+        <article class="card">
+          <h3>안내</h3>
+          <ul class="feature-points">
+            <li>처리 시간은 파일 길이에 따라 달라질 수 있습니다.</li>
+            <li>완료되면 결과 화면에서 음원과 탭을 확인할 수 있습니다.</li>
+            <li>분석 중에는 이 화면에서 상태를 확인할 수 있습니다.</li>
+          </ul>
+        </article>
+      </section>
+    </main>
+  </div>
+  <script src="./app.js"></script>
+</body>
+</html>
