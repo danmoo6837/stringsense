@@ -35,7 +35,7 @@
       <header class="content__header">
         <div>
           <h1>분석 결과</h1>
-          <p class="body-copy">sample_acoustic_riff.wav 분석이 완료되었습니다.</p>
+          <p class="body-copy" id="result-filename">분석이 완료되었습니다.</p>
         </div>
         <div class="tab-toolbar__group">
           <a class="button button--ghost" href="./index.html">새 파일 업로드</a>
@@ -57,15 +57,8 @@
                 <h3>원본 음원</h3>
                 <p class="body-copy">업로드한 입력 파일</p>
               </div>
-              <button class="button button--ghost" type="button">재생</button>
             </div>
-            <div class="audio-bar">
-              <div class="audio-bar__track"><span style="width: 42%"></span></div>
-              <div class="audio-bar__time">
-                <span>00:18</span>
-                <span>00:42</span>
-              </div>
-            </div>
+            <audio id="original-audio" controls style="width:100%; margin-top:8px;"></audio>
           </div>
           <div class="audio-player">
             <div class="card__head">
@@ -91,9 +84,9 @@
             <div class="result-file">
               <div>
                 <strong>result.mid</strong>
-                <p>MIDI 파일 다운로드</p>
+                <p id="note-count">음표 검출 중...</p>
               </div>
-              <button class="button button--dark" type="button">다운로드</button>
+              <a id="midi-download" class="button button--dark" href="#">다운로드</a>
             </div>
             <div class="result-file">
               <div>
@@ -112,12 +105,7 @@
               </div>
             </div>
             <div class="tab-ascii">
-              <pre>e|----------------|
-B|----------------|
-G|------2---------|
-D|----2---2-------|
-A|--0-------------|
-E|----------------|</pre>
+              <pre id="tab-preview">분석 결과를 불러오는 중...</pre>
             </div>
             <div class="action-row">
               <a class="button button--primary" href="./tab.html">탭 크게 보기</a>
