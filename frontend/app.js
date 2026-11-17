@@ -7,6 +7,7 @@ const fileInput = document.querySelector("#audio-file");
 const selectedFileEl = document.querySelector("#selected-file");
 const sampleButton = document.querySelector("#sample-button");
 const startButton = document.querySelector("#start-button");
+const dropzone = document.querySelector(".dropzone-real");
 
 let selectedFile = null;
 
@@ -14,6 +15,11 @@ if (fileInput && selectedFileEl) {
   fileInput.addEventListener("change", () => {
     const file = fileInput.files && fileInput.files[0];
     if (!file) return;
+    if (!/\.(mp3|wav)$/i.test(file.name)) {
+      fileInput.value = "";
+      alert("MP3 또는 WAV 파일을 선택해주세요.");
+      return;
+    }
 
     selectedFile = file;
     const sizeMb = (file.size / (1024 * 1024)).toFixed(2);
@@ -24,6 +30,52 @@ if (fileInput && selectedFileEl) {
       </div>
       <span class="soft-pill">선택됨</span>
     `;
+  });
+}
+
+if (dropzone && fileInput) {
+  let dragDepth = 0;
+  const resetDrag = () => {
+    dragDepth = 0;
+    dropzone.classList.remove("is-dragging");
+  };
+  // Prevent the browser from opening a dropped file outside the upload area.
+  for (const type of ["dragover", "drop"]) {
+    window.addEventListener(type, (event) => {
+      if (Array.from(event.dataTransfer?.types || []).includes("Files")) {
+        event.preventDefault();
+        if (type === "drop") resetDrag();
+      }
+    });
+  }
+  dropzone.addEventListener("dragenter", (event) => {
+    event.preventDefault();
+    dragDepth += 1;
+    dropzone.classList.add("is-dragging");
+  });
+  dropzone.addEventListener("dragover", (event) => {
+    event.preventDefault();
+    event.dataTransfer.dropEffect = "copy";
+  });
+  dropzone.addEventListener("dragleave", () => {
+    dragDepth -= 1;
+    if (dragDepth <= 0) resetDrag();
+  });
+  dropzone.addEventListener("drop", (event) => {
+    event.preventDefault();
+    resetDrag();
+    const files = event.dataTransfer?.files;
+    if (!files?.length) return;
+    if (files.length !== 1) {
+      alert("음원 파일을 한 개씩 선택해주세요.");
+      return;
+    }
+    if (!/\.(mp3|wav)$/i.test(files[0].name)) {
+      alert("MP3 또는 WAV 파일을 선택해주세요.");
+      return;
+    }
+    fileInput.files = files;
+    fileInput.dispatchEvent(new Event("change", { bubbles: true }));
   });
 }
 
