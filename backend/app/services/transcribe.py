@@ -13,12 +13,10 @@ LIBROSA_MAX_NOTE_DURATION = 1.25
 
 
 def extract_notes(audio: np.ndarray, sr: int, audio_path: str | None = None) -> list[dict]:
-    """Use Basic Pitch first, then librosa when unavailable or empty."""
+    """Extract with Basic Pitch only; unavailable or empty results stay empty."""
     if audio_path:
-        notes = _extract_with_basic_pitch(audio_path)
-        if notes:
-            return notes
-    return _extract_with_librosa(audio, sr)
+        return _extract_with_basic_pitch(audio_path)
+    return []
 
 
 def _extract_with_basic_pitch(audio_path: str) -> list[dict]:
@@ -27,7 +25,7 @@ def _extract_with_basic_pitch(audio_path: str) -> list[dict]:
         _, _, raw_notes = predict(audio_path)
     except Exception:
         import logging
-        logging.getLogger(__name__).warning("Basic Pitch unavailable; using librosa", exc_info=True)
+        logging.getLogger(__name__).warning("Basic Pitch failed; returning no notes", exc_info=True)
         return []
     notes = []
     for raw_note in raw_notes:
