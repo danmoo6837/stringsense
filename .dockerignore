@@ -1,0 +1,12 @@
+**
+!Dockerfile
+!requirements.txt
+!requirements-eval.txt
+!backend/
+!backend/app/
+!backend/app/**
+!backend/evaluate.py
+!frontend/
+!frontend/**
+**/__pycache__/
+**/*.pyc

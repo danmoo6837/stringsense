@@ -1,0 +1,25 @@
+services:
+  backend:
+    build: .
+    image: stringsense-evaluation:local
+    ports:
+      - "127.0.0.1:8001:8000"
+    volumes:
+      - ./backend/data/raw:/app/backend/data/raw
+      - ./backend/data/outputs:/app/backend/data/outputs
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/openapi.json', timeout=5)"]
+      interval: 10s
+      timeout: 6s
+      retries: 6
+      start_period: 15s
+  evaluate:
+    image: stringsense-evaluation:local
+    profiles: ["evaluation"]
+    depends_on:
+      backend:
+        condition: service_healthy
+    volumes:
+      - ./backend/data/inputs:/app/backend/data/inputs:ro
+      - ./backend/data/evaluations:/app/backend/data/evaluations
+    command: ["python", "backend/evaluate.py", "--base-url", "http://backend:8000"]

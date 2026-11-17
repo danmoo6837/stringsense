@@ -4,6 +4,7 @@ ubuntu.tar
 # Runtime data: uploaded audio and generated analysis files
 backend/data/raw/
 backend/data/outputs/
+backend/data/evaluations/
 
 # Python
 __pycache__/

@@ -22,12 +22,12 @@
         </div>
         <nav class="nav">
           <a class="nav__item" href="./index.html">새 분석</a>
-          <a class="nav__item" href="./processing.html">처리 상태</a>
           <a class="nav__item nav__item--active" href="./result.html">결과 보기</a>
+          <a class="nav__item" href="./tab.html">TAB 상세</a>
         </nav>
       </div>
       <div class="sidebar__foot">
-        <p class="mini-copy">분석 결과와 생성된 파일을 확인합니다.</p>
+        <p class="mini-copy">현재 MVP는 원본 오디오, MIDI, ASCII TAB 결과를 제공합니다.</p>
       </div>
     </aside>
 
@@ -35,47 +35,42 @@
       <header class="content__header">
         <div>
           <h1>분석 결과</h1>
-          <p class="body-copy" id="result-filename">분석이 완료되었습니다.</p>
+          <p class="body-copy" id="result-filename">결과를 불러오는 중입니다.</p>
         </div>
         <div class="tab-toolbar__group">
-          <a class="button button--ghost" href="./index.html">새 파일 업로드</a>
-          <a class="button button--primary" href="./tab.html">탭 자세히 보기</a>
+          <a class="button button--ghost" href="./index.html">새 파일 분석</a>
+          <a class="button button--primary" href="./tab.html">TAB 크게 보기</a>
         </div>
       </header>
 
-      <section class="grid grid--result">
+      <section class="grid grid--result" id="result-content">
         <div class="shell-preview">
+          <article class="card">
+            <h3>TAB 악보 PDF</h3>
+            <p class="body-copy">생성된 오선보와 기타 TAB 악보를 확인하세요.</p>
+            <p data-pdf-status>PDF를 불러오는 중입니다.</p>
+            <iframe data-pdf-preview title="TAB 악보 PDF 미리보기" class="pdf-preview hidden"></iframe>
+            <a data-pdf-download class="button button--dark hidden">PDF 다운로드</a>
+            <a data-pdf-open class="button button--ghost hidden" target="_blank" rel="noopener">새 창에서 보기</a>
+          </article>
           <div class="result-head">
             <div>
-              <h3>오디오</h3>
+              <h3>오디오 확인</h3>
+              <p class="body-copy">업로드한 원본 오디오를 다시 확인합니다.</p>
             </div>
             <span class="status-chip">Completed</span>
           </div>
+
           <div class="audio-player">
             <div class="card__head">
               <div>
                 <h3>원본 음원</h3>
-                <p class="body-copy">업로드한 입력 파일</p>
+                <p class="body-copy">분석에 사용된 업로드 파일</p>
               </div>
             </div>
             <audio id="original-audio" controls style="width:100%; margin-top:8px;"></audio>
           </div>
-          <div class="audio-player">
-            <div class="card__head">
-              <div>
-                <h3>기타 분리 음원</h3>
-                <p class="body-copy">채보에 사용된 기타 강조 오디오</p>
-              </div>
-              <button class="button button--ghost" type="button">재생</button>
-            </div>
-            <div class="audio-bar">
-              <div class="audio-bar__track"><span style="width: 37%"></span></div>
-              <div class="audio-bar__time">
-                <span>00:15</span>
-                <span>00:42</span>
-              </div>
-            </div>
-          </div>
+
         </div>
 
         <div class="grid">
@@ -84,42 +79,47 @@
             <div class="result-file">
               <div>
                 <strong>result.mid</strong>
-                <p id="note-count">음표 검출 중...</p>
+                <p id="note-count">검출된 음표 수를 불러오는 중입니다.</p>
               </div>
               <a id="midi-download" class="button button--dark" href="#">다운로드</a>
             </div>
             <div class="result-file">
               <div>
-                <strong>guitar_separated.wav</strong>
-                <p>분리 음원 저장</p>
+                <strong>result_tab.txt</strong>
+                <p>생성된 ASCII TAB 파일</p>
               </div>
-              <button class="button button--dark" type="button">저장</button>
+              <a id="tab-download" class="button button--dark" href="#">다운로드</a>
             </div>
           </article>
 
           <article class="card">
             <div class="card__head">
               <div>
-                <h3>탭 미리보기</h3>
-                <p class="body-copy">자동으로 생성된 기타 탭 초안입니다.</p>
+                <h3>TAB 미리보기</h3>
+                <p class="body-copy">자동 생성된 기타 TAB 초안입니다.</p>
               </div>
             </div>
             <div class="tab-ascii">
-              <pre id="tab-preview">분석 결과를 불러오는 중...</pre>
-            </div>
-            <div class="action-row">
-              <a class="button button--primary" href="./tab.html">탭 크게 보기</a>
+              <pre id="tab-preview">분석 결과를 불러오는 중입니다.</pre>
             </div>
           </article>
         </div>
       </section>
 
+      <section class="card retry-card hidden" id="missing-result">
+        <div>
+          <h3>불러올 결과가 없습니다</h3>
+          <p class="body-copy">먼저 오디오 파일을 업로드하고 분석을 실행하세요.</p>
+        </div>
+        <a class="button button--primary" href="./index.html">새 파일 분석</a>
+      </section>
+
       <section class="card retry-card">
         <div>
-          <h3>다른 음원도 분석해 보시겠어요?</h3>
-          <p class="body-copy">새 파일을 업로드해서 다시 결과를 확인할 수 있습니다.</p>
+          <h3>다른 음원도 분석해볼까요?</h3>
+          <p class="body-copy">새 파일을 업로드하면 기존 결과와 비교할 수 있습니다.</p>
         </div>
-        <a class="button button--primary" href="./index.html">새 파일 분석하기</a>
+        <a class="button button--primary" href="./index.html">새 파일 분석</a>
       </section>
     </main>
   </div>

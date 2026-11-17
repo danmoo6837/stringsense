@@ -1,16 +1,19 @@
 import os
 import pretty_midi
 
+# 임시 고정 템포: 자동 추정값이 아닌 4분음표 기준 BPM.
+DEFAULT_BPM = 120
+
 # 탭 렌더링: 위에서부터 e(5), B(4), G(3), D(2), A(1), E(0)
 TAB_STRING_ORDER = [5, 4, 3, 2, 1, 0]
 TAB_STRING_LABELS = ["e", "B", "G", "D", "A", "E"]
-TAB_RESOLUTION = 0.125  # 초당 컬럼 (0.125s = 8th note at ~120bpm)
+TAB_RESOLUTION = 60.0 / DEFAULT_BPM / 4  # 칸당 초: 120 BPM에서 16분음표 = 0.125초
 TAB_MIN_COLS = 16
 
 
 def to_midi(note_events: list[dict], output_dir: str) -> str:
     """note_events를 MIDI 파일로 저장하고 경로를 반환한다."""
-    midi = pretty_midi.PrettyMIDI(initial_tempo=120)
+    midi = pretty_midi.PrettyMIDI(initial_tempo=DEFAULT_BPM)
     guitar = pretty_midi.Instrument(program=25)  # Acoustic Guitar (steel)
 
     for event in note_events:

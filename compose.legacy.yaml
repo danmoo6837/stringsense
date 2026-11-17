@@ -1,0 +1,24 @@
+services:
+  backend:
+    image: stringsense-evaluation:local
+    environment:
+      PYTHONUNBUFFERED: '1'
+      NUMBA_CACHE_DIR: /tmp/numba-cache
+    volumes:
+      - ./backend/benchmarks/transcribe_legacy.py:/app/backend/app/services/transcribe.py:ro
+      - ./backend/data/raw:/app/backend/data/raw
+      - ./backend/data/outputs:/app/backend/data/outputs
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/openapi.json', timeout=5)"]
+      interval: 5s
+      timeout: 6s
+      retries: 12
+  evaluate:
+    image: stringsense-evaluation:local
+    depends_on:
+      backend:
+        condition: service_healthy
+    volumes:
+      - ./backend/data/inputs:/app/backend/data/inputs:ro
+      - ./backend/data/evaluations:/app/backend/data/evaluations
+    command: ["python", "backend/evaluate.py", "--base-url", "http://backend:8000", "--group", "solo"]

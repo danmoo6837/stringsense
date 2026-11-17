@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Stringsense | 탭 상세</title>
+  <title>Stringsense | TAB 상세</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
@@ -22,13 +22,12 @@
         </div>
         <nav class="nav">
           <a class="nav__item" href="./index.html">새 분석</a>
-          <a class="nav__item" href="./processing.html">처리 상태</a>
           <a class="nav__item" href="./result.html">결과 보기</a>
-          <a class="nav__item nav__item--active" href="./tab.html">탭 상세</a>
+          <a class="nav__item nav__item--active" href="./tab.html">TAB 상세</a>
         </nav>
       </div>
       <div class="sidebar__foot">
-        <p class="mini-copy">생성된 기타 탭 초안을 크게 보고 저장할 수 있습니다.</p>
+        <p class="mini-copy">생성된 ASCII TAB을 크게 확인하고 저장할 수 있습니다.</p>
       </div>
     </aside>
 
@@ -37,83 +36,72 @@
 
       <header class="content__header">
         <div>
-          <h1>탭 상세</h1>
-          <p class="body-copy">자동 생성된 기타 탭 초안을 크게 확인할 수 있습니다.</p>
+          <h1>TAB 상세</h1>
+          <p class="body-copy" id="tab-summary">자동 생성된 기타 TAB 초안을 확인합니다.</p>
         </div>
         <div class="tab-toolbar__group">
-          <button class="button button--dark" type="button">탭 파일 저장</button>
+          <a class="button button--dark" id="tab-download-detail" href="#">TAB 다운로드</a>
         </div>
       </header>
 
-      <section class="hero-panel">
-        <div>
-          <span class="badge">Tab Preview</span>
-          <h2>생성된 탭 초안을 확인하고 저장할 수 있습니다</h2>
-          <p>필요하면 결과 화면으로 돌아가 음원을 다시 듣고, 다른 파일을 새로 분석할 수 있습니다.</p>
-        </div>
-        <div class="stats-card">
-          <div class="stats-card__grid">
-            <div>
-              <strong>Save</strong>
-              <span>탭 파일 저장</span>
-            </div>
-            <div>
-              <strong>Back</strong>
-              <span>결과 화면 이동</span>
-            </div>
-            <div>
-              <strong>ASCII</strong>
-              <span>탭 형태 표시</span>
-            </div>
-            <div>
-              <strong>MIDI</strong>
-              <span>함께 활용 가능</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="grid grid--tab">
+      <section class="grid grid--tab" id="tab-content">
+        <article class="card">
+          <h3>TAB 악보 PDF</h3>
+          <p class="body-copy">생성된 오선보와 기타 TAB 악보를 크게 확인하세요.</p>
+          <p data-pdf-status>PDF를 불러오는 중입니다.</p>
+          <iframe data-pdf-preview title="TAB 악보 PDF 미리보기" class="pdf-preview hidden"></iframe>
+          <a data-pdf-download class="button button--dark hidden">PDF 다운로드</a>
+          <a data-pdf-open class="button button--ghost hidden" target="_blank" rel="noopener">새 창에서 보기</a>
+        </article>
         <article class="card">
           <div class="card__head">
             <div>
-              <h3>ASCII Tab</h3>
+              <h3>ASCII TAB</h3>
+              <p class="body-copy">result_tab.txt와 동일한 내용입니다.</p>
             </div>
             <span class="soft-pill">result_tab.txt</span>
           </div>
           <div class="tab-ascii">
-            <pre id="tab-full">결과를 불러오는 중...</pre>
+            <pre id="tab-full">결과를 불러오는 중입니다.</pre>
           </div>
         </article>
 
         <div class="grid">
           <article class="card">
-            <h3 class="section-tab">저장하기</h3>
+            <h3 class="section-tab">결과 파일</h3>
             <div class="mapping-block">
               <ul class="table-list">
-                <li>탭 텍스트 파일 저장</li>
-                <li>MIDI 파일 다운로드</li>
-                <li>결과 화면으로 돌아가기</li>
+                <li>ASCII TAB 텍스트 파일을 저장할 수 있습니다.</li>
+                <li>MIDI 파일은 결과 화면에서 다운로드할 수 있습니다.</li>
+                <li>새 샘플을 분석하면 이 화면의 내용도 갱신됩니다.</li>
               </ul>
             </div>
             <div class="action-stack">
-              <button class="button button--dark button--wide" type="button">탭 파일 저장</button>
+              <a class="button button--dark button--wide" id="tab-download-side" href="#">TAB 다운로드</a>
               <a class="button button--ghost button--wide" href="./result.html">결과 화면으로 돌아가기</a>
             </div>
           </article>
 
           <article class="card">
-            <h3 class="section-tab">다음 작업</h3>
+            <h3 class="section-tab">시연 메모</h3>
             <ul class="event-list">
-              <li>생성된 탭은 초안이므로 필요에 따라 수정해서 사용할 수 있습니다.</li>
-              <li>결과 화면에서 다시 음원을 확인할 수 있습니다.</li>
-              <li>새 파일을 올려 다른 결과를 바로 비교할 수 있습니다.</li>
+              <li>현재 결과는 자동 생성 초안입니다.</li>
+              <li>단일 기타 단음 리프일수록 더 안정적인 결과가 나옵니다.</li>
+              <li>코드 스트로크나 배경음이 많은 샘플은 정확도가 떨어질 수 있습니다.</li>
             </ul>
             <div class="action-stack">
-              <a class="button button--primary button--wide" href="./index.html">새 파일 분석하기</a>
+              <a class="button button--primary button--wide" href="./index.html">새 파일 분석</a>
             </div>
           </article>
         </div>
+      </section>
+
+      <section class="card retry-card hidden" id="missing-tab">
+        <div>
+          <h3>표시할 TAB이 없습니다</h3>
+          <p class="body-copy">먼저 오디오 파일을 업로드하고 분석을 실행하세요.</p>
+        </div>
+        <a class="button button--primary" href="./index.html">새 파일 분석</a>
       </section>
     </main>
   </div>
