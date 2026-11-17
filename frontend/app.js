@@ -31,15 +31,15 @@ if (sampleButton) {
   sampleButton.addEventListener("click", async () => {
     sampleButton.disabled = true;
     try {
-      const response = await fetch("./samples/00_BN3-119-G_solo.wav");
+      const response = await fetch("./samples/00_BN1-147-Gb_solo.wav");
       if (!response.ok) throw new Error("샘플 음원을 불러오지 못했습니다.");
       const blob = await response.blob();
-      selectedFile = new File([blob], "00_BN3-119-G_solo.wav", { type: "audio/wav" });
+      selectedFile = new File([blob], "00_BN1-147-Gb_solo.wav", { type: "audio/wav" });
       if (fileInput) fileInput.value = "";
       if (selectedFileEl) {
       selectedFileEl.innerHTML = `
         <div>
-          <strong>00_BN3-119-G_solo.wav</strong>
+          <strong>00_BN1-147-Gb_solo.wav</strong>
           <p>${(selectedFile.size / (1024 * 1024)).toFixed(2)} MB · 업로드 준비 완료</p>
         </div>
         <span class="soft-pill">선택됨</span>
